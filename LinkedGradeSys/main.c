@@ -2,6 +2,7 @@
 #include "util.h"
 
 int main(int argc, char** argv) {
+	init_test_date();
     //定义初始化选择项
 	int choose=-1;
 	while(1) {
@@ -14,10 +15,10 @@ int main(int argc, char** argv) {
 				input_score();
 				break;
 			case 2:
-				printf("查询成绩\n");
+				search_score();
 				break;
 			case 3:
-				printf("修改成绩\n");
+				modify_score();
 				break;
 			case 4:
 				printf("删除成绩\n");

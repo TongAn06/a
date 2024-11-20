@@ -3,8 +3,10 @@
 
 void menu();
 
-//定义结构体，用于存放学生的信息
-struct Student{
+void init_test_date();
+
+//定义结构体类型，用于存放学生的信息
+typedef struct Student{
 	//学号
 	int stuNum;
 	//姓名
@@ -13,12 +15,20 @@ struct Student{
 	char sex;
 	//成绩
 	float score;
-};
+	//pnext指向下一个student类型的结构体,可以链接多个student结构体，形成一个链式存储结构
+	struct Student *pNext;
+}Student;
 
 //录入成绩
 void input_score();
 
 //打印学生成绩
 void student_list();
+
+//查询
+void search_score();
+
+//修改
+void modify_score();
 
 #endif
