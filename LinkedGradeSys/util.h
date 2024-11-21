@@ -31,4 +31,9 @@ void search_score();
 //修改
 void modify_score();
 
+//删除
+void delete_score();
+
+//保存
+void save_file();
 #endif

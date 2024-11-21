@@ -21,10 +21,10 @@ int main(int argc, char** argv) {
 				modify_score();
 				break;
 			case 4:
-				printf("删除成绩\n");
+				delete_score();
 				break;
 			case 5:
-				printf("保存成绩\n");
+				save_file();
 				break;
 			case 6:
 				student_list();

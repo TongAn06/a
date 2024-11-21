@@ -204,15 +204,16 @@ void modify_score() {
 		printf("%-16d%-8s%-8c%-8.2f\n",temp->stuNum,temp->name,temp->sex,temp->score);
 		getchar();
 		char choose=getchar();
-		if (choose=='y'||choose=='Y'){printf("请输入新的成绩：\n");
-		scanf("%f",&temp->score);
-		printf("修改成功,");
+		if (choose=='y'||choose=='Y') {
+			printf("请输入新的成绩：\n");
+			scanf("%f",&temp->score);
+			printf("修改成功,");
 		}
 //		printf("请输入新的姓名：");
 //		scanf("%s",&temp->name);
 //		getchar();
 //		printf("请输入新的性别（男：M，女：F）：");
-//		scanf("%s",&temp->sex);	
+//		scanf("%s",&temp->sex);
 	}
 	system("pause");
 	system("cls");
@@ -220,31 +221,94 @@ void modify_score() {
 
 void delete_score() {
 	int num;
-	printf("请输入要删除的学生学号：");
+
+	Student *p=head;
+	Student *prev=NULL;
+	printf("请输入要删除的学生学号:");
 	scanf("%d",&num);
-	Student *temp=head;
-	while(temp!=NULL) {
-		if(temp->stuNum==num) {
-			break;
+
+	if (head==NULL) {
+		printf("链表为空，删除失败\n");
+		system("pause");
+		return;
+	}
+
+	if (head->stuNum==num) {
+		printf("找到学生信息如下：\n");
+		printf("学号\t\t姓名\t性别\t成绩\n");
+		printf("%-16d%-8s%-8c%-8.2f\n",p->stuNum,p->name,p->sex,p->score);
+		printf("请确认是否删除（y/n）");
+		getchar();
+		char choose=getchar();
+		if(choose=='y'||choose=='Y') {
+			free(p);
+			//将头指针重新指向头节点的下一个节点
+			head=head->pNext;
+			printf("删除学号%d的学生成功。\n",num);
 		}
-		temp=temp->pNext;
+		system("pause");
+		system("cls");
+		return;
 	}
-	if(temp==NULL) {
-		printf("您要删除的学生不存在。");
+	//遍历链表查找要删除的学生
+	while(p!=NULL && p->stuNum!=num) {
+		//记录当前节点作为前一个节点
+		prev=p;
+		//移动到下一个节点
+		p=p->pNext;
+	}
+	if(p!=NULL) {
+		printf("找到学生信息如下：\n");
+		printf("学号\t\t姓名\t性别\t成绩\n");
+		printf("%-16d%-8s%-8c%-8.2f\n",p->stuNum,p->name,p->sex,p->score);
+		printf("请确认是否删除（y/n）");
+		getchar();
+		char choose=getchar();
+		if(choose=='y'||choose=='Y') {
+			//更新前一个节点的pnext指针，跳过要删除的节点
+			prev->pNext=p->pNext;
+			//释放要删除的节点的内存
+			free(p);
+			printf("删除学号%d的学生成功。\n",num);
+		}
 	} else {
-	while(temp!=NULL){
-		temp=temp->pNext;	
+		printf("您要删除的学生不存在");
 	}
+	system("pause");
+	system("cls");
+}
 
-	
-		
-		
-		
-		
-		
-		
+void save_file() {
+	//w表示写入，如果文件不存在则创建一个文件
+	FILE *fp=fopen("D:\\data.txt","w");
+	if (fp==NULL) {
+		printf("文件不存在或无法打开\n");
+		return;
 	}
+	Student *p=head;
+	// fwrite(数据指针，单个数据大小，数据个数，文件指针)
+	while(p!=NULL) {
+		fwrite(p,sizeof(Student),1,fp);
+		p=p->pNext;
+	}
+	fclose(fp);
+	printf("保存成功\n");
+	system("pause");
+	system("cls");
 
+}
+
+void load_file() {
+    //r表示读取	
+	FILE *fp=fopen("D:\\data.txt","r");
+	if (fp==NULL) {
+		printf("文件不存在或无法打开\n");
+		return;
+	}
+	Student stu;
+	//p用于遍历和更新链表
+	Student *p=head;
+	//fread() 读取文件中的数据
 }
 
 
