@@ -2,7 +2,8 @@
 #include "util.h"
 
 int main(int argc, char** argv) {
-	init_test_date();
+//  init_test_date();
+    load_file();
     //定义初始化选择项
 	int choose=-1;
 	while(1) {

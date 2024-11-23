@@ -36,4 +36,7 @@ void delete_score();
 
 //保存
 void save_file();
+
+//读取
+void load_file();
 #endif

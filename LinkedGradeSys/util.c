@@ -299,7 +299,7 @@ void save_file() {
 }
 
 void load_file() {
-    //r表示读取	
+	//r表示读取
 	FILE *fp=fopen("D:\\data.txt","r");
 	if (fp==NULL) {
 		printf("文件不存在或无法打开\n");
@@ -309,6 +309,22 @@ void load_file() {
 	//p用于遍历和更新链表
 	Student *p=head;
 	//fread() 读取文件中的数据
+	while(fread(&stu,sizeof(Student),1,fp)) {
+		//动态分布内存创建新节点
+		Student *newNode=(Student *)malloc(sizeof(Student));
+		newNode->pNext=NULL;
+		memcpy(newNode,&stu,sizeof(Student));
+		//如果链表为空，设置新节点为头节点
+		if(p==NULL) {
+			head=newNode;
+		} else {
+			//如果链表非空，将新节点链接到链表末尾
+			p->pNext=newNode;
+		}
+		p=newNode;
+	}
+	fclose(fp);
+	printf("读取成功！\n");
 }
 
 
